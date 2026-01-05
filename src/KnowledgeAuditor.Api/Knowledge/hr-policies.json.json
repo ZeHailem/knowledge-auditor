@@ -1,3 +1,38 @@
-{
-
-}
+[
+	{
+		"policyId": "HR-POL-12",
+		"title": "Employee Termination Policy",
+		"domain": "Hr",
+		"region": "US",
+		"version": "1.0",
+		"sections": [
+			{
+				"sectionId": "4.2",
+				"text": "An employee may be terminated with cause following an internal review and approval by Human Resources.",
+				"document": "employee_handbook.pdf",
+				"pageNumber": 18
+			},
+			{
+				"sectionId": "4.3",
+				"text": "Termination decisions must be documented and retained in the employee personnel file.",
+				"document": "employee_handbook.pdf",
+				"pageNumber": 19
+			}
+		]
+	},
+	{
+		"policyId": "HR-POL-21",
+		"title": "Employee Leave Policy",
+		"domain": "Hr",
+		"region": "US",
+		"version": "1.1",
+		"sections": [
+			{
+				"sectionId": "2.1",
+				"text": "Employees are entitled to paid leave in accordance with federal and state regulations.",
+				"document": "leave_policy.pdf",
+				"pageNumber": 5
+			}
+		]
+	}
+]
