@@ -1,78 +1,59 @@
-# Knowledge Auditor API 🚧
+# Knowledge Auditor API (Responsible AI Governance) 🚀
 
-> **Status:** Work in Progress (WIP)
+> **Status:** Active development (WIP) — core governance flow works end-to-end.
 
-## Overview
-The **Knowledge Auditor API** is an ASP.NET Core service designed to support **Responsible AI** by auditing AI-generated responses against **company knowledge, policies, and risk rules**.
+## What this is
+**Knowledge Auditor API** is an ASP.NET Core service that audits a user request against **company policy knowledge** and returns an **explainable, evidence-backed decision**.
 
-Instead of focusing on model accuracy, this project focuses on **governance, enforcement, and explainability**:
-- Was the response grounded in approved knowledge?
-- Which policy or document supports the decision?
-- Should the response be approved, rejected, or escalated?
+Instead of building “just QA,” this project focuses on **governance and enforcement**:
+- Is the response grounded in approved company knowledge?
+- Which policy section supports the decision?
+- Should the request be **Approved**, **Rejected**, or **Escalated**?
 
----
+## Why this matters (Responsible AI)
+In enterprise environments, the problem is rarely “can the model answer?”
+It’s:
+- Can we **trust** the answer?
+- Can we **audit** it later?
+- Can we **enforce** business rules and reduce risk?
 
-## Goals
-- Enforce **evidence-based AI responses**
-- Support **auditability and traceability**
-- Apply **company-specific policies and rules**
-- Enable **risk-aware decision making**
-- Demonstrate practical **Responsible AI engineering**
+This project demonstrates a practical pattern:
+> **Retrieve evidence → Evaluate confidence → Enforce a policy decision → Return explainable output**
 
----
-
-## What This Project Is
-- ✅ A governance and audit layer for AI systems  
-- ✅ An example of Responsible AI enforcement  
-- ✅ A backend API focused on trust and control  
-
-## What This Project Is NOT
-- ❌ A chatbot UI  
-- ❌ A model training project  
-- ❌ A prompt-only solution  
+## Key features
+- **Evidence-first design**: decisions are backed by policy sections (document + page + section ID)
+- **Governance pipeline**: clean separation of retrieval, evaluation, and enforcement
+- **Deterministic behavior** (no LLM required for Phase 1)
+- **Swagger/OpenAPI** docs for easy exploration
+- Unit tests for core components (retrieval / evaluation / decision logic)
 
 ---
 
-## Current Scope (Phase 1)
-- Single-company knowledge base (HR policies)
-- In-memory knowledge loading
-- Policy-aware audit decisions
-- Clear audit outcomes (approve / reject / escalate)
+## Architecture (high level)
+
+**Flow:**
+1. **Knowledge Store** loads HR policies from `hr-policies.json`
+2. **Retrieval Service** finds relevant policy sections for a question
+3. **Evaluation Service** scores confidence based on evidence
+4. **Policy Decision Engine** enforces outcome rules
+5. **Governance Pipeline** orchestrates everything and outputs `AuditDecision`
+
+**Components:**
+- `InMemoryHrKnowledgeStore` → loads company policy knowledge
+- `HrRetrievalService` → retrieves relevant policy sections
+- `SimpleEvaluationService` → produces `EvaluationResult` (confidence, evidence count)
+- `PolicyDecisionEngine` → returns `AuditDecision` (Approved/Rejected/Escalated)
+- `GovernancePipeline` → orchestrator
 
 ---
 
-## Planned Work
-- Governance pipeline implementation
-- Knowledge retrieval service
-- Evaluation and decision logic
-- API endpoints for auditing
-- Tests for audit and refusal scenarios
-- Documentation and architecture notes
+## API
 
----
+### POST `/audit`
+Audits a question against company HR policies and returns a decision + evidence.
 
-## Tech Stack
-- ASP.NET Core (.NET)
-- C#
-- Git & GitHub
-- Evaluation-driven decision logic
-
----
-
-## Status
-🚧 **This repository is under active development.**  
-The structure and foundations are in place, but features are being implemented incrementally.
-
----
-
-## Motivation
-This project is built to gain hands-on experience with:
-- Responsible AI
-- AI governance systems
-- Auditability and compliance-aware design
-- Enterprise-grade backend architecture
-
----
-
-## License
-
+**Request**
+```json
+{
+  "question": "Can we terminate an employee with cause?"
+}
