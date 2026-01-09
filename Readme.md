@@ -55,5 +55,25 @@ Audits a question against company HR policies and returns a decision + evidence.
 **Request**
 ```json
 {
-  "question": "Can we terminate an employee with cause?"
+  "question": "Termination decisions must be documented"
+}
+```
+
+
+**Response**
+
+```json
+{
+  "outcome": "Escalated",
+  "riskLevel": "Medium",
+  "reason": "Supporting policy found, but confidence is below approval threshold.",
+  "evidence": [
+    {
+      "policyId": "HR-POL-12",
+      "document": "Employee Termination Policy",
+      "sectionId": "4.3",
+      "pageNumber": 19
+    }
+  ],
+  "auditId": "f3382f1f-3d2c-42e2-b62c-4ccf4876b47c"
 }
