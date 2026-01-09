@@ -1,6 +1,9 @@
 @KnowledgeAuditor.Api_HostAddress = http://localhost:5254
 
-GET {{KnowledgeAuditor.Api_HostAddress}}/weatherforecast/
+POST {{KnowledgeAuditor.Api_HostAddress}}/audit
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "question": "Termination decisions must be documented"
+}
