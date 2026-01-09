@@ -1,6 +1,9 @@
 ﻿namespace KnowledgeAuditor.Api.Core.Models
 {
-    public class DecisionOutcome
+    public enum DecisionOutcome
     {
+        Approved,
+        Rejected,
+        Escalated
     }
 }

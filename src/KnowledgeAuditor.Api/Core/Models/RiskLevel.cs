@@ -1,6 +1,10 @@
 ﻿namespace KnowledgeAuditor.Api.Core.Models
 {
-    public class RiskLevel
+    public enum RiskLevel
     {
+        Low,
+        Medium,
+        High
     }
+   
 }
