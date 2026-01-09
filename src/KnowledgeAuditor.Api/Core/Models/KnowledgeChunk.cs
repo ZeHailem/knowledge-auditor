@@ -1,6 +1,6 @@
 ﻿namespace KnowledgeAuditor.Api.Core.Models
 {
-    public sealed class KnowledgeChunckcs
+    public sealed class KnowledgeChunk
     {
         public string Text { get; init; } = default!;
         public KnowledgeMetadata Metadata { get; init; } = new();

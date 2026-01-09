@@ -3,8 +3,8 @@
     public sealed class AuditDecision
     {
 
-        public DecisionOutcomes Outcome { get; init; }
-        public RiskLevels RiskLevel { get; init; }
+        public DecisionOutcome Outcome { get; init; }
+        public RiskLevel RiskLevel { get; init; }
 
         public string Reason { get; init; } = default!;
 
