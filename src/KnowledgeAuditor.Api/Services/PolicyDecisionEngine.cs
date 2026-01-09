@@ -1,9 +1,16 @@
 ﻿using KnowledgeAuditor.Api.Core.Models;
+using Microsoft.Extensions.Options;
 
 namespace KnowledgeAuditor.Api.Services
 {
     public class PolicyDecisionEngine : IPolicyDecisionEngine
     {
+        private readonly DecisionPolicyOptions _options;
+
+        public PolicyDecisionEngine(IOptions<DecisionPolicyOptions> options)
+        {
+            _options = options.Value;
+        }
         public AuditDecision Decide(EvaluationResult evaluation, IReadOnlyList<KnowledgeChunk> evidence)
         {
         // Case 1: No evidence → Reject
@@ -18,13 +25,13 @@ namespace KnowledgeAuditor.Api.Services
             }
 
             // Case 2: Weak confidence → Escalate
-            if (evaluation.ConfidenceScore < 0.6)
+            if (evaluation.ConfidenceScore < _options.ApprovalThreshold)
             {
                 return new AuditDecision
                 {
                     Outcome = DecisionOutcome.Escalated,
                     RiskLevel = RiskLevel.Medium,
-                    Reason = "Supporting policy found, but confidence is below approval threshold.",
+                    Reason = $"Supporting policy found, but confidence is below approval threshold {_options.ApprovalThreshold}",
                     Evidence = BuildEvidence(evidence)
                 };
             }

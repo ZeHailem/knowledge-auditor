@@ -1,4 +1,5 @@
 
+using KnowledgeAuditor.Api.Core.Models;
 using KnowledgeAuditor.Api.Pipeline;
 using KnowledgeAuditor.Api.Services;
 using System.Text.Json.Serialization;
@@ -16,6 +17,9 @@ builder.Services.AddControllers()
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<DecisionPolicyOptions>(
+    builder.Configuration.GetSection(DecisionPolicyOptions.SectionName));
 // Register services
 builder.Services.AddSingleton<IKnowledgeStore, InMemoryHrKnowledgeStore>();
 builder.Services.AddSingleton<IRetrievalService, HrRetrievalService>();

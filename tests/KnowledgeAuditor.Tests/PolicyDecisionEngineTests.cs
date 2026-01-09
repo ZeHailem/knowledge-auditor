@@ -1,8 +1,9 @@
-﻿using KnowledgeAuditor.Api.Services;
+﻿using KnowledgeAuditor.Api.Core.Models;
+using KnowledgeAuditor.Api.Services;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using KnowledgeAuditor.Api.Core.Models;
 
 namespace KnowledgeAuditor.Tests
 {
@@ -13,7 +14,9 @@ namespace KnowledgeAuditor.Tests
         public void PolicyDecisionEngine_tests()
         {
             var knowledge = TestUtils.GetDummyKnowledge();
-            var policyDesc = new PolicyDecisionEngine();
+            var options = Options.Create(new DecisionPolicyOptions());
+            
+            var policyDesc = new PolicyDecisionEngine(options);
             SimpleEvaluationService service = new();
             var evalResult = service.Evaluate(knowledge);
             var dec = policyDesc.Decide(evalResult, knowledge);
